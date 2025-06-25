@@ -2,9 +2,10 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../supabaseClient";
 import AuthForm from "./AuthForm";
+import type { User } from "@supabase/supabase-js";
 
 export default function AccountPage() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
