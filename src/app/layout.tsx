@@ -14,6 +14,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="A simple subscription-based platform for premium articles. Unlock exclusive insights and stay ahead." />
+        <meta property="og:title" content="Social Predict MVP" />
+        <meta property="og:description" content="A simple subscription-based platform for premium articles. Unlock exclusive insights and stay ahead." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://socialpredict.io" />
+        <meta property="og:image" content="/og-image.png" />
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-HS7QX71DYE"></script>
+        <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-HS7QX71DYE');` }} />
+      </head>
       <body className="min-h-screen font-sans bg-gradient-to-br from-neutral-100 via-neutral-200 to-neutral-300">
         <header className="bg-white border-b border-neutral-200 sticky top-0 z-10 shadow-sm">
           <nav className="container mx-auto flex items-center justify-between py-4 px-6">

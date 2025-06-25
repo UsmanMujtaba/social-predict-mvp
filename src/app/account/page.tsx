@@ -68,6 +68,7 @@ export default function AccountPage() {
   return (
     <div className="max-w-lg mx-auto bg-white rounded-2xl shadow-lg p-10 mt-8">
       <h1 className="text-3xl font-extrabold mb-6 text-black text-center tracking-tight">My Account</h1>
+      <div className="text-center text-lg text-neutral-700 mb-4">Welcome back, <span className="font-bold text-black">{user.email}</span>!</div>
       <div className="flex flex-col items-center mb-6">
         <div className="w-16 h-16 rounded-full bg-neutral-200 flex items-center justify-center text-2xl font-bold text-black mb-2">
           {user.email?.[0]?.toUpperCase()}
