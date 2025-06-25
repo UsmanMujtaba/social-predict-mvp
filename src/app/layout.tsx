@@ -25,7 +25,13 @@ export default function RootLayout({
             </div>
           </nav>
         </header>
-        <main className="container mx-auto px-4 py-8">{children}</main>
+        <main className="container mx-auto px-4 py-8 relative">
+          {children}
+        </main>
+        {/* Global loading spinner overlay (hidden by default, can be shown by adding a class in the future) */}
+        <div id="global-loading" className="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
+          <div className="w-12 h-12 border-4 border-white border-t-black rounded-full animate-spin"></div>
+        </div>
       </body>
     </html>
   );

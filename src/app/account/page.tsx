@@ -3,16 +3,28 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../supabaseClient";
 import AuthForm from "./AuthForm";
 import type { User } from "@supabase/supabase-js";
+import Link from "next/link";
 
 export default function AccountPage() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [subStatus, setSubStatus] = useState<string | null>(null);
+  const [subId, setSubId] = useState<string | null>(null);
 
   useEffect(() => {
     const getUser = async () => {
       const { data } = await supabase.auth.getUser();
       setUser(data.user);
       setLoading(false);
+      if (data.user) {
+        const { data: sub } = await supabase
+          .from("subscriptions")
+          .select("status, stripe_subscription_id")
+          .eq("user_id", data.user.id)
+          .single();
+        setSubStatus(sub?.status || null);
+        setSubId(sub?.stripe_subscription_id || null);
+      }
     };
     getUser();
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -33,7 +45,17 @@ export default function AccountPage() {
     <div className="max-w-lg mx-auto bg-white rounded-lg shadow p-8">
       <h1 className="text-2xl font-bold mb-4 text-black">My Account</h1>
       <p className="text-neutral-700 mb-4">Welcome, <span className="font-semibold">{user.email}</span></p>
-      {/* Subscription status and management UI will go here */}
+      <div className="mb-6">
+        <h2 className="font-semibold text-black mb-2">Subscription Status:</h2>
+        {subStatus === "active" ? (
+          <div className="text-green-600 font-semibold">Active<br /><span className="text-xs text-neutral-500">Subscription ID: {subId}</span></div>
+        ) : (
+          <div className="text-red-600 font-semibold mb-2">Not subscribed</div>
+        )}
+        {subStatus !== "active" && (
+          <Link href="/pricing" className="inline-block mt-2 bg-black text-white px-4 py-2 rounded font-semibold hover:bg-neutral-800 transition">Subscribe Now</Link>
+        )}
+      </div>
       <button
         className="mt-6 bg-black text-white px-4 py-2 rounded font-semibold hover:bg-neutral-800 transition"
         onClick={async () => { await supabase.auth.signOut(); window.location.reload(); }}

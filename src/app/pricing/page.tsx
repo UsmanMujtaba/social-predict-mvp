@@ -1,11 +1,30 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "../../supabaseClient";
 import { useRouter } from "next/navigation";
 
 export default function PricingPage() {
   const [loading, setLoading] = useState(false);
+  const [subscribed, setSubscribed] = useState(false);
+  const [checking, setChecking] = useState(true);
   const router = useRouter();
+
+  useEffect(() => {
+    async function checkSub() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: sub } = await supabase
+          .from("subscriptions")
+          .select("status")
+          .eq("user_id", user.id)
+          .eq("status", "active")
+          .single();
+        setSubscribed(!!sub);
+      }
+      setChecking(false);
+    }
+    checkSub();
+  }, []);
 
   async function handleSubscribe() {
     setLoading(true);
@@ -30,6 +49,8 @@ export default function PricingPage() {
     }
   }
 
+  if (checking) return <div className="text-center text-neutral-500">Checking subscription...</div>;
+
   return (
     <div className="max-w-xl mx-auto bg-white rounded-lg shadow p-8 text-center">
       <h1 className="text-3xl font-bold mb-4 text-black">Premium Access</h1>
@@ -39,13 +60,17 @@ export default function PricingPage() {
         <li>Cancel anytime</li>
         <li>Support the platform</li>
       </ul>
-      <button
-        className="bg-black text-white px-6 py-3 rounded font-semibold hover:bg-neutral-800 transition disabled:opacity-60"
-        onClick={handleSubscribe}
-        disabled={loading}
-      >
-        {loading ? "Redirecting..." : "Subscribe with Stripe"}
-      </button>
+      {subscribed ? (
+        <div className="text-green-600 font-semibold">You are already subscribed!</div>
+      ) : (
+        <button
+          className="bg-black text-white px-6 py-3 rounded font-semibold hover:bg-neutral-800 transition disabled:opacity-60"
+          onClick={handleSubscribe}
+          disabled={loading}
+        >
+          {loading ? "Redirecting..." : "Subscribe with Stripe"}
+        </button>
+      )}
     </div>
   );
 } 
