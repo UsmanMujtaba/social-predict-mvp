@@ -6,7 +6,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="w-full max-w-3xl mx-auto text-center py-16 px-4">
         <div className="mb-8 flex flex-col items-center">
-          <img src="https://undraw.co/api/illustrations/modern-hero" alt="Hero" className="w-48 h-48 mb-6 mx-auto" />
+          <Image src="/hero-illustration.png" alt="Hero" width={192} height={192} className="mb-6 mx-auto" />
           <h1 className="text-5xl font-extrabold text-black mb-4 tracking-tight leading-tight">Unlock Premium Insights</h1>
           <p className="text-xl text-neutral-700 mb-8 max-w-xl mx-auto">Get exclusive access to expert-written articles and stay ahead in your field. Join our community of curious minds and never miss out on the latest trends.</p>
           <a href="/pricing" className="inline-block bg-black text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-neutral-800 transition shadow">Subscribe Now</a>
