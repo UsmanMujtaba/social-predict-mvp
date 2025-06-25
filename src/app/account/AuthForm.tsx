@@ -18,6 +18,13 @@ export default function AuthForm({ onAuth }: { onAuth?: () => void }) {
       result = await supabase.auth.signInWithPassword({ email, password });
     } else {
       result = await supabase.auth.signUp({ email, password });
+      if (!result.error && result.data.user) {
+        // Insert user into users table
+        await supabase.from("users").upsert({
+          id: result.data.user.id,
+          email: result.data.user.email,
+        });
+      }
     }
     setLoading(false);
     if (result.error) {
