@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
       .from('subscriptions')
       .update({ status: canceled.status })
       .eq('stripe_subscription_id', sub.stripe_subscription_id);
-    return NextResponse.json({ status: canceled.status });
+    return NextResponse.json({ status: canceled.status, cancel_at_period_end: canceled.cancel_at_period_end });
   } catch (error: unknown) {
     const err = error as Error;
     return NextResponse.json({ error: err.message }, { status: 500 });

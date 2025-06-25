@@ -14,18 +14,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-neutral-50 min-h-screen font-sans">
-        <header className="bg-white border-b border-neutral-200 sticky top-0 z-10">
+      <body className="min-h-screen font-sans bg-gradient-to-br from-neutral-100 via-neutral-200 to-neutral-300">
+        <header className="bg-white border-b border-neutral-200 sticky top-0 z-10 shadow-sm">
           <nav className="container mx-auto flex items-center justify-between py-4 px-6">
-            <Link href="/" className="text-2xl font-extrabold text-black tracking-tight">Social Predict</Link>
+            <Link href="/" className="text-2xl font-extrabold text-black tracking-tight hover:opacity-80 transition">Social Predict</Link>
             <div className="space-x-6">
-              <Link href="/articles" className="text-neutral-700 hover:text-black transition-colors font-medium">Articles</Link>
-              <Link href="/pricing" className="text-neutral-700 hover:text-black transition-colors font-medium">Pricing</Link>
-              <Link href="/account" className="text-neutral-700 hover:text-black transition-colors font-medium">Account</Link>
+              <Link href="/articles" className="text-neutral-700 hover:text-black hover:underline transition-colors font-semibold">Articles</Link>
+              <Link href="/pricing" className="text-neutral-700 hover:text-black hover:underline transition-colors font-semibold">Pricing</Link>
+              <Link href="/account" className="text-neutral-700 hover:text-black hover:underline transition-colors font-semibold">Account</Link>
             </div>
           </nav>
         </header>
-        <main className="container mx-auto px-4 py-8 relative">
+        <main className="container mx-auto px-4 py-12 relative min-h-[80vh] flex flex-col items-center justify-center">
           {children}
         </main>
         {/* Global loading spinner overlay (hidden by default, can be shown by adding a class in the future) */}

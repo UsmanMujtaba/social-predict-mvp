@@ -52,25 +52,29 @@ export default function PricingPage() {
   if (checking) return <div className="text-center text-neutral-500">Checking subscription...</div>;
 
   return (
-    <div className="max-w-xl mx-auto bg-white rounded-lg shadow p-8 text-center">
-      <h1 className="text-3xl font-bold mb-4 text-black">Premium Access</h1>
-      <p className="mb-6 text-neutral-700">Subscribe for just <span className="font-semibold text-black">$4.99/month</span> to unlock all premium articles.</p>
-      <ul className="mb-6 text-left list-disc list-inside text-neutral-800">
-        <li>Unlimited access to all premium articles</li>
-        <li>Cancel anytime</li>
-        <li>Support the platform</li>
-      </ul>
-      {subscribed ? (
-        <div className="text-green-600 font-semibold">You are already subscribed!</div>
-      ) : (
-        <button
-          className="bg-black text-white px-6 py-3 rounded font-semibold hover:bg-neutral-800 transition disabled:opacity-60"
-          onClick={handleSubscribe}
-          disabled={loading}
-        >
-          {loading ? "Redirecting..." : "Subscribe with Stripe"}
-        </button>
-      )}
+    <div className="flex justify-center items-center min-h-[60vh]">
+      <div className="max-w-xl w-full mx-auto bg-white rounded-2xl shadow-xl p-10 text-center border border-neutral-200">
+        <h1 className="text-4xl font-extrabold mb-4 text-black tracking-tight">Premium Access</h1>
+        <div className="flex justify-center mb-6">
+          <span className="bg-black text-white px-4 py-2 rounded-full text-lg font-bold shadow inline-block">$4.99<span className="text-sm font-medium ml-1">/month</span></span>
+        </div>
+        <ul className="mb-8 text-left list-disc list-inside text-neutral-800 space-y-2 mx-auto max-w-xs">
+          <li>Unlimited access to all premium articles</li>
+          <li>Cancel anytime</li>
+          <li>Support the platform</li>
+        </ul>
+        {subscribed ? (
+          <div className="text-green-600 font-semibold">You are already subscribed!</div>
+        ) : (
+          <button
+            className="w-full bg-black text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-neutral-800 transition disabled:opacity-60 shadow"
+            onClick={handleSubscribe}
+            disabled={loading}
+          >
+            {loading ? "Redirecting..." : "Subscribe with Stripe"}
+          </button>
+        )}
+      </div>
     </div>
   );
 } 

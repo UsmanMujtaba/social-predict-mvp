@@ -39,19 +39,19 @@ export default function ArticlesPage() {
   if (loading) return <div className="text-center text-neutral-500">Loading...</div>;
 
   return (
-    <div className="max-w-2xl mx-auto bg-white rounded-lg shadow p-8">
-      <h1 className="text-2xl font-bold mb-4 text-black">Premium Articles</h1>
+    <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-10">
+      <h1 className="text-3xl font-extrabold mb-8 text-black text-center tracking-tight">Premium Articles</h1>
       {articles.length === 0 && <p className="text-neutral-700">No articles yet.</p>}
-      <ul className="space-y-6">
+      <ul className="space-y-8">
         {articles.map(article => (
-          <li key={article.id} className="border-b border-neutral-200 pb-4">
-            <h2 className="text-lg font-semibold text-black mb-2">{article.title}</h2>
+          <li key={article.id} className="border border-neutral-200 rounded-xl p-6 bg-neutral-50 hover:shadow-lg transition-shadow">
+            <h2 className="text-xl font-bold text-black mb-2">{article.title}</h2>
             {subscribed ? (
-              <Link href={`/articles/${article.id}`} className="text-neutral-700 hover:underline">Read full article</Link>
+              <Link href={`/articles/${article.id}`} className="text-blue-700 hover:underline font-semibold">Read full article &rarr;</Link>
             ) : (
               <>
                 <p className="text-neutral-700 mb-2">{article.preview}</p>
-                <Link href="/pricing" className="text-black underline">Subscribe to read more</Link>
+                <Link href="/pricing" className="text-black underline font-semibold">Subscribe to read more</Link>
               </>
             )}
           </li>

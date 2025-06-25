@@ -47,11 +47,14 @@ export default function AccountPage() {
       body: JSON.stringify({ email: user.email }),
     });
     const data = await res.json();
-    if (data.status === "canceled" || data.status === "incomplete_expired" || data.status === "canceled_at_period_end") {
+    if (data.cancel_at_period_end) {
       setCancelMsg("Your subscription will be canceled at the end of the billing period.");
-      setSubStatus(data.status);
+    } else if (data.status) {
+      setCancelMsg("Your subscription status: " + data.status);
     } else if (data.error) {
       setCancelMsg(data.error);
+    } else {
+      setCancelMsg("An unknown error occurred.");
     }
     setCancelLoading(false);
   }
